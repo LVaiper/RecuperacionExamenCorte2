@@ -4,6 +4,7 @@ var numRegistros = 0;
 var btnGenerar = document.getElementById("btnGenerar");
 var btnCalcular = document.getElementById("btnCalcular");
 var btnRegistrar = document.getElementById("btnRegistrar");
+var btnBorrarRegistro = document.getElementById("btnBorrarRegistro");
 var registros = document.getElementById("registros");
 
 function generar() {
@@ -66,6 +67,14 @@ function registrar() {
 	</tr>`;
 }
 
+function borrarRegistro() {
+	registros.innerHTML = "";
+	document.getElementById("promedioIMC").innerText = "";
+	imcTotal = 0;
+	numRegistros = 0;
+}
+
 btnGenerar.addEventListener("click", generar);
 btnCalcular.addEventListener("click", calcular);
 btnRegistrar.addEventListener("click", registrar);
+btnBorrarRegistro.addEventListener("click", borrarRegistro);
