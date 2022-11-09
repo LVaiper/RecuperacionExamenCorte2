@@ -1,10 +1,17 @@
+var imcTotal = 0;
+var numRegistros = 0;
+
 var btnGenerar = document.getElementById("btnGenerar");
 var btnCalcular = document.getElementById("btnCalcular");
+var btnRegistrar = document.getElementById("btnRegistrar");
+var registros = document.getElementById("registros");
 
 function generar() {
 	document.getElementById("edad").value = Math.floor(Math.random() * (99 - 18) + 18);
 	document.getElementById("altura").value = (Math.random() * (2.5 - 1.5) + 1.5).toFixed(2);
 	document.getElementById("peso").value = (Math.random() * (130 - 20) + 20).toFixed(2);
+	document.getElementById("imc").value = "";
+	document.getElementById("nivel").value = "";
 }
 
 function calcular() {
@@ -12,7 +19,6 @@ function calcular() {
 	var peso = document.getElementById("peso").value;
 
 	var imc = peso / Math.pow(altura, 2);
-	document.getElementById("imc").value = imc.toFixed(2);
 
 	if (imc < 18.5) {
 		document.getElementById("nivel").value = "Bajo peso";
@@ -23,9 +29,43 @@ function calcular() {
 	} else if (imc > 30.0) {
 		document.getElementById("nivel").value = "Obesidad";
 	} else {
-		alert("Introduzca bien los datos");
+		return alert("Introduzca bien los datos");
 	}
+
+	document.getElementById("imc").value = imc.toFixed(2);
+}
+
+function registrar() {
+	if ( document.getElementById("edad").value === "" || document.getElementById("altura").value === "" || document.getElementById("peso").value === "" ) {
+		return alert("Presione el boton de generar");
+	}
+
+	if (document.getElementById("imc").value === "" || document.getElementById("nivel").value === "") {
+		return alert("Presione el boton de calcular");
+	}
+	
+	var imcConvertido = parseFloat(document.getElementById("imc").value);
+
+	if (isNaN(imcConvertido)) {
+		return alert("IMC invalido");
+	}
+	
+	numRegistros += 1;
+	imcTotal += imcConvertido;
+
+
+	document.getElementById("promedioIMC").innerText = (imcTotal / numRegistros).toFixed(2);
+
+	registros.innerHTML += `<tr>
+		<td>${numRegistros}</td>
+		<td>${document.getElementById("edad").value}</td>
+		<td>${document.getElementById("altura").value}</td>
+		<td>${document.getElementById("peso").value}</td>
+		<td>${document.getElementById("imc").value}</td>
+		<td>${document.getElementById("nivel").value}</td>
+	</tr>`;
 }
 
 btnGenerar.addEventListener("click", generar);
 btnCalcular.addEventListener("click", calcular);
+btnRegistrar.addEventListener("click", registrar);
