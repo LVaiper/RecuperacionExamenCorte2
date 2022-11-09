@@ -7,5 +7,25 @@ function generar() {
 	document.getElementById("peso").value = (Math.random() * (130 - 20) + 20).toFixed(2);
 }
 
+function calcular() {
+	var altura = document.getElementById("altura").value;
+	var peso = document.getElementById("peso").value;
+
+	var imc = peso / Math.pow(altura, 2);
+	document.getElementById("imc").value = imc.toFixed(2);
+
+	if (imc < 18.5) {
+		document.getElementById("nivel").value = "Bajo peso";
+	} else if (imc >= 18.5 && imc <= 24.9) {
+		document.getElementById("nivel").value = "Peso Saludable";
+	} else if (imc >= 25.0 && imc <= 29.9) {
+		document.getElementById("nivel").value = "Sobrepeso";
+	} else if (imc > 30.0) {
+		document.getElementById("nivel").value = "Obesidad";
+	} else {
+		alert("Introduzca bien los datos");
+	}
+}
+
 btnGenerar.addEventListener("click", generar);
 btnCalcular.addEventListener("click", calcular);
